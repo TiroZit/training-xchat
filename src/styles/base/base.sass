@@ -1,0 +1,20 @@
+@use "sass:math"
+@use "variables" as *
+
+/* Оболочка*/
+.layout
+	display: flex
+	flex-direction: column
+	min-height: 100%
+
+	main
+		flex-grow: 1
+
+[class*="__container"]
+	@if ($maxWidthContainer > 0)
+		box-sizing: content-box
+		max-width: rem($maxWidthContainer)
+		margin: 0 auto
+
+	@if ($containerPadding > 0)
+		padding: 0 rem(math.div($containerPadding, 2))
