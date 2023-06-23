@@ -2,18 +2,25 @@
 	<div class="wrapper">
 		<ListChats/>
 		<div class="image">
-			<img src="https://images.unsplash.com/photo-1624318462623-7a29dbb84e0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80" alt="alt">
+			<Label v-if="$route.path === '/chats'" class="m-auto">
+				Select a chat to start messaging
+			</Label>
+			<router-view></router-view>
 		</div>
 	</div>
 </template>
 <script>
+import { defineComponent } from "vue"
 import ListChats from "../components/ListChats.vue";
+import Label from "../components/Label.vue";
 
-export default {
+export default defineComponent({
+	name: "Chats",
 	components: {
 		ListChats,
+		Label,
 	}
-}
+})
 </script>
 <style lang="sass" scoped>
 .wrapper
@@ -21,11 +28,11 @@ export default {
 	height: 100%
 .image
 	position: relative
+	display: flex
 	width: 100%
 	height: 100%
-	img
-		position: absolute
-		inset: 0
-		width: 100%
-		height: 100%
+	background-image: url("/assets/img/background.jpg")
+	background-size: cover
+	background-repeat: no-repeat
+	background-position: center
 </style>

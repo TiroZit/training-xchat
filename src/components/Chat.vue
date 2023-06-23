@@ -1,5 +1,5 @@
 <template>
-	<router-link to="/" class="chat">
+	<router-link :to="{ name: 'Chat', params: { id: chat.id } }" class="chat">
 		<div class="chat__wrapper">
 			<div class="chat__image">
 				<img :src="chat.image" :alt="chat.name">
@@ -39,7 +39,9 @@ export default {
 <style lang="sass" scoped>
 .chat
 	display: block
-	margin-top: 16px
+	padding-top: 16px
+	&[aria-current]
+		background: rgba(111, 145, 180, 0.20)
 	&__wrapper
 		display: flex
 		padding-bottom: 16px
