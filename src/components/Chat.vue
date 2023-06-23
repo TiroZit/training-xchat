@@ -2,19 +2,19 @@
 	<router-link to="/" class="chat">
 		<div class="chat__wrapper">
 			<div class="chat__image">
-				<img src="" alt="alt">
+				<img :src="chat.image" :alt="chat.name">
 			</div>
 			<div class="chat__info">
 				<div class="chat__title">
-					Andrei
+					{{ chat.name }}
 				</div>
 				<div class="chat__subtitle">
-					Subtitle
+					{{ getLastElement(chat.messages).text }}
 				</div>
 			</div>
 			<div class="chat__footer">
 				<div class="chat__time">
-					10:49
+					{{ getLastElement(chat.messages).time }}
 				</div>
 				<div class="chat__notification">
 					4
@@ -26,6 +26,14 @@
 <script>
 export default {
 	name: "Chat",
+	props: {
+		chat: {}
+	},
+	methods: {
+		getLastElement: (array) => {
+			return array[array.length - 1]
+		},
+	},
 }
 </script>
 <style lang="sass" scoped>
@@ -37,11 +45,14 @@ export default {
 		padding-bottom: 16px
 		border-bottom: 1px solid #6F91B4
 	&__image
+		position: relative
 		width: 64px
 		height: 64px
 		margin-right: 24px
 		border-radius: 50%
 		background-color: #6F91B4
+		img
+			border-radius: 50%
 	&__info
 		flex: 1 1 auto
 	&__title

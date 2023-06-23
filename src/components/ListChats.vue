@@ -6,7 +6,7 @@
 				<Search/>
 			</div>
 			<div class="chat__body">
-				<Chat/>
+				<Chat v-for="chat in chatsStore.chats" :key="chat.id" :chat="chat"/>
 			</div>
 		</div>
 	</div>
@@ -14,13 +14,24 @@
 <script>
 import Search from "./Search.vue";
 import Chat from "./Chat.vue";
+import { useChatsStore } from "../stores/useChatsStore";
 
 export default {
 	name: "ListChats",
 	components: {
 		Search,
 		Chat,
-	}
+	},
+	setup() {
+		const chatsStore = useChatsStore()
+
+		return {
+			chatsStore,
+		}
+	},
+	mounted() {
+		// console.log(this.chatsStore.chats);
+	},
 }
 </script>
 <style lang="sass" scoped>
