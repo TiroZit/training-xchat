@@ -48,6 +48,7 @@ export default {
 		border-bottom: 1px solid #6F91B4
 	&__image
 		position: relative
+		flex: 0 0 auto
 		width: 64px
 		height: 64px
 		margin-right: 24px
@@ -56,7 +57,7 @@ export default {
 		img
 			border-radius: 50%
 	&__info
-		flex: 1 1 auto
+		flex: 1 0 auto
 	&__title
 		font-size: 18px
 		font-weight: 600
@@ -65,6 +66,10 @@ export default {
 		font-size: 16px
 		font-weight: 500
 		color: #6F91B4
+		white-space: nowrap
+		overflow: hidden
+		width: 400px
+		text-overflow: ellipsis
 	&__footer
 		display: flex
 		flex-direction: column

@@ -31,6 +31,7 @@ export default {
 	padding: 29px
 	border-radius: 16px
 	margin-bottom: 16px
+	word-wrap: break-word
 	&__time
 		position: absolute
 		bottom: 16px

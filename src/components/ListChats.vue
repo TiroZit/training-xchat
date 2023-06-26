@@ -40,6 +40,7 @@ export default {
 	height: 100%
 	border-right: 1px solid #6F91B4
 	&__wrapper
+		max-width: 627px
 		height: 100%
 		padding: 32px 32px 0 32px
 	&__header
