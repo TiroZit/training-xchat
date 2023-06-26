@@ -74,6 +74,8 @@ export default defineComponent({
 		border: none
 		margin: 0 24px
 		padding: 0
+		&:focus
+			outline: none !important
 	&__send
 		display: flex
 		align-items: center

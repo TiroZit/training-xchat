@@ -1,6 +1,8 @@
 <template>
 	<div class="chat__wrapper">
-		<Message v-for="message in getChat(id).messages" :key="message.id" :message="message" />
+		<div class="chat__messages">
+			<Message v-for="message in getChat(id).messages" :key="message.id" :message="message" />
+		</div>
 		<WriteMessage :id="id"/>
 	</div>
 </template>
@@ -45,5 +47,12 @@ export default {
 	align-items: flex-start
 	justify-content: end
 	width: 100%
-	margin-left: 16px
+.chat__messages
+	display: flex
+	flex-direction: column
+	align-items: flex-start
+	justify-content: end
+	overflow: auto
+	width: 100%
+	padding: 0 16px
 </style>

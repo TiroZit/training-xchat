@@ -1,5 +1,5 @@
 <template>
-	<div class="message">
+	<div :class="`message ${messageModifierClass}`">
 		<p>
 			{{ message.text }}
 		</p>
@@ -13,6 +13,13 @@ export default {
 	name: "Message",
 	props: {
 		message: {},
+	},
+	computed: {
+		messageModifierClass() {
+			if (this.message.type === "own") {
+				return "message_own"
+			} else return "message_others"
+		}
 	},
 }
 </script>
@@ -32,6 +39,9 @@ export default {
 	border-radius: 16px
 	margin-bottom: 16px
 	word-wrap: break-word
+	&_own
+		align-self: flex-end
+		background-color: #F5E7C9
 	&__time
 		position: absolute
 		bottom: 16px
