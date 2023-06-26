@@ -9,7 +9,12 @@
 					{{ chat.name }}
 				</div>
 				<div class="chat__subtitle">
-					{{ getLastElement(chat.messages).text }}
+					<span v-if="getLastElement(chat.messages).text === ''">
+						Изображение
+					</span>
+					<span v-else>
+						{{ getLastElement(chat.messages).text }}
+					</span>
 				</div>
 			</div>
 			<div class="chat__footer">

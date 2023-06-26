@@ -10,6 +10,8 @@ export default defineComponent({
 	data() {
 		return {
 			message: "",
+			imageData: "",
+			fileName: "",
 		}
 	},
 	setup(props) {
@@ -20,7 +22,6 @@ export default defineComponent({
 		}
 	},
 	mounted() {
-		console.log(this.chatsStore)
 	},
 	methods: {
 		sendMessage() {
@@ -35,6 +36,7 @@ export default defineComponent({
 					}
 				),
 				text: this.message,
+				image: "",
 				type: "own",
 			}
 
@@ -42,15 +44,45 @@ export default defineComponent({
 
 			this.message = ""
 		},
+		handleFileChange(event) {
+			const files = event.target.files;
+			const file = files[0];
+			const reader = new FileReader();
+
+			reader.onload = (e) => {
+				this.imageData = e.target.result;
+				this.fileName = file.name;
+
+				let message = {
+					id: this.chatsStore.length + 1,
+					time: new Date().toLocaleTimeString('en-US',
+						{
+							hour12: false,
+							hour: "numeric",
+							minute: "numeric"
+						}
+					),
+					text: this.message,
+					imageSrc: this.imageData,
+					imageAlt: this.fileName,
+					type: "own",
+				}
+
+				this.chatsStore.push(message)
+			};
+
+			reader.readAsDataURL(file);
+		},
 	},
 })
 </script>
 
 <template>
 	<div class="write-message">
-		<button class="write-message__clip">
+		<input @change="handleFileChange" id="inputFile" type="file" class="write-message__input-file">
+		<label for="inputFile">
 			<i-ph-paperclip-light style="width: 24px; height: 24px;"/>
-		</button>
+		</label>
 		<input v-model="message" @keypress.enter="sendMessage" type="text" class="write-message__input" placeholder="Write a message...">
 		<button @click="sendMessage" class="write-message__send">
 			<i-majesticons-send-line/>
@@ -76,6 +108,16 @@ export default defineComponent({
 		padding: 0
 		&:focus
 			outline: none !important
+	&__input-file
+		width: 0.1px
+		height: 0.1px
+		opacity: 0
+		overflow: hidden
+		position: absolute
+		z-index: -1
+		& + label
+			display: block
+			cursor: pointer
 	&__send
 		display: flex
 		align-items: center

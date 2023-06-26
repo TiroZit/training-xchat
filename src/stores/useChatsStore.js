@@ -12,12 +12,16 @@ export const useChatsStore = defineStore("chatsStore", {
 						id: 1,
 						time: "10",
 						text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus modi incidunt, aliquam minima ad ut similique reiciendis ab dolore a? Error ab repellendus culpa asperiores, nostrum fuga accusantium, rerum perferendis, dolore distinctio commodi officia incidunt rem. Labore suscipit reiciendis quos quas blanditiis iste optio tenetur quia maiores nobis praesentium vitae incidunt eligendi illum est animi voluptatum perferendis temporibus corporis modi, tempore dolorum aliquid. Maxime corrupti tenetur fugiat cum exercitationem consectetur accusantium modi tempore debitis, nisi quae nam consequuntur culpa. Doloribus odit omnis consectetur vel id eaque at incidunt iste. Aliquam voluptatem rem sit iusto ipsa natus autem ratione voluptas molestias.",
+						imageSrc: "",
+						imageAlt: "",
 						type: "own",
 					},
 					{
 						id: 2,
 						time: "10:46",
 						text: "asda",
+						imageSrc: "",
+						imageAlt: "",
 						type: "others",
 					}
 				]
@@ -31,6 +35,8 @@ export const useChatsStore = defineStore("chatsStore", {
 						id: 2,
 						time: "10:46",
 						text: "asda",
+						imageSrc: "",
+						imageAlt: "",
 						type: "others",
 					}
 				]

@@ -1,8 +1,9 @@
 <template>
 	<div :class="`message ${messageModifierClass}`">
-		<p>
+		<p v-if="message.text" class="mb-1">
 			{{ message.text }}
 		</p>
+		<img v-if="message.imageSrc" :src="message.imageSrc" :alt="message.imageAlt">
 		<div class="message__time">
 			{{ message.time }}
 		</div>
