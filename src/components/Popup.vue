@@ -20,7 +20,7 @@ export default defineComponent({
 			<div class="popup__body">
 				<slot name="body"/>
 			</div>
-			<div class="popup__footer">
+			<div class="popup__footer flex flex-col justify-center">
 				<slot name="footer"/>
 			</div>
 		</div>
