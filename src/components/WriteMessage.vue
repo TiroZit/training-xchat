@@ -15,7 +15,7 @@ export default defineComponent({
 		}
 	},
 	setup(props) {
-		const chatsStore = useChatsStore().chats[props.id-1].messages
+		const chatsStore = useChatsStore()
 
 		return {
 			chatsStore,
@@ -26,6 +26,7 @@ export default defineComponent({
 	methods: {
 		sendMessage() {
 			if (this.message === "") return
+
 			let message = {
 				id: this.chatsStore.length + 1,
 				time: new Date().toLocaleTimeString('en-US',
@@ -40,7 +41,7 @@ export default defineComponent({
 				type: "own",
 			}
 
-			this.chatsStore.push(message)
+			this.chatsStore.chats[this.id-1].messages.push(message)
 
 			this.message = ""
 		},
@@ -68,7 +69,7 @@ export default defineComponent({
 					type: "own",
 				}
 
-				this.chatsStore.push(message)
+				this.chatsStore.chats[this.id-1].messages.push(message)
 			};
 
 			reader.readAsDataURL(file);
