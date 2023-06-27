@@ -23,6 +23,11 @@ const routes = [
 		path: "/503",
 		name: "ServiceUnavailable",
 		component: () => import('/views/ServiceUnavailable.vue'),
+	},
+	{
+		path: "/auth",
+		name: "Auth",
+		component: () => import('/views/Auth.vue'),
 	}
 ];
 
