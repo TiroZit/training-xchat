@@ -14,4 +14,9 @@ export const useUsersStore = defineStore("usersStore", {
 			}
 		]
 	}),
+	actions: {
+		auth(login, password){
+			return this.users.find((el) => (el.login === login && el.password === password))
+		},
+	}
 })
