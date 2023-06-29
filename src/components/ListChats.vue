@@ -3,24 +3,39 @@
 		<div class="chats__wrapper">
 			<div class="chats__header">
 				<i-material-symbols-settings-outline style="width: 28px; height: 28px; margin-right: 24px; flex-shrink: 0;"/>
-				<Search/>
+				<div class="search">
+					<div class="search__icon">
+						<i-material-symbols-search style="width: 24px; height: 24px;"/>
+					</div>
+					<input v-model="search" type="text" class="search__input" placeholder="Search"/>
+				</div>
 			</div>
 			<div class="chat__body">
-				<Chat v-for="chat in chatsStore.chats" :key="chat.id" :chat="chat"/>
+				<Chat v-for="chat in filteredList" :key="chat.id" :chat="chat"/>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
-import Search from "./Search.vue";
 import Chat from "./Chat.vue";
 import { useChatsStore } from "../stores/useChatsStore";
 
 export default {
 	name: "ListChats",
 	components: {
-		Search,
 		Chat,
+	},
+	data() {
+		return {
+			search: "",
+		}
+	},
+	computed: {
+		filteredList() {
+			return this.chatsStore.chats.filter(chat => {
+				return chat.name.toLowerCase().includes(this.search.toLowerCase())
+			})
+		},
 	},
 	setup() {
 		const chatsStore = useChatsStore()
@@ -49,4 +64,23 @@ export default {
 		color: #6F91B4
 		border-bottom: 1px solid #6F91B4
 		padding-bottom: 24px
+
+.search
+	position: relative
+	width: 100%
+	&__icon
+		position: absolute
+		left: 16px
+		top: 50%
+		transform: translateY(-50%)
+	&__input
+		width: 100%
+		height: 40px
+		font-size: 16px
+		padding: 11px
+		padding-left: 56px
+		border: 1px solid #6F91B4
+		border-radius: 8px
+		&::placeholder
+			color: currentColor
 </style>
