@@ -3,6 +3,8 @@ import {defineComponent} from 'vue'
 import Popup from "../components/Popup.vue";
 import CustomInput from "../components/CustomInput.vue";
 import {useUsersStore} from "../stores/useUsersStore.js";
+import {useVuelidate} from "@vuelidate/core";
+import {email, helpers, required, sameAs} from "@vuelidate/validators";
 
 export default defineComponent({
 	name: "Registration",
@@ -17,6 +19,7 @@ export default defineComponent({
 
 		return {
 			usersStore,
+			v$: useVuelidate(),
 		}
 	},
 	data() {
@@ -25,21 +28,25 @@ export default defineComponent({
 			lastName: "",
 			mail: "",
 			phone: "",
-			loginValue: "",
-			passwordValue: "",
-			passwordConfirmValue: "",
+			login: "",
+			password: "",
+			passwordConfirm: "",
 		}
 	},
 	methods: {
-		handleSubmit: function () {
+		async handleSubmit () {
+			const result = await this.v$.$validate()
+
+			if (!result) return
+
 			let user = {
 				id: this.usersStore.users.length + 1,
 				firstName: this.firstName,
 				lastName: this.lastName,
 				mail: this.mail,
 				phone: this.phone,
-				login: this.loginValue,
-				password: this.passwordValue,
+				login: this.login,
+				password: this.password,
 			}
 
 			this.usersStore.users.push(user)
@@ -47,6 +54,17 @@ export default defineComponent({
 			this.$router.push("/auth")
 		},
 	},
+	validations () {
+		return {
+			login: {required},
+			mail: {required, email},
+			password: {required},
+			passwordConfirm: {
+				required,
+				sameAs: sameAs(this.password)
+			}
+		}
+	}
 })
 </script>
 
@@ -60,15 +78,19 @@ export default defineComponent({
 				Create account to start messaging
 			</template>
 			<template v-slot:body>
-				<CustomInput v-model="loginValue" :placeholder-value="`Login`"/>
+				<CustomInput v-model="login" :placeholder-value="`Login`"/>
 				<div class="flex gap-5">
 					<CustomInput v-model="firstName" :placeholder-value="`First name`"/>
 					<CustomInput v-model="lastName" :placeholder-value="`Last name`"/>
 				</div>
 				<CustomInput v-model="mail" :type-value="`mail`" :placeholder-value="`E-mail`"/>
 				<CustomInput v-model="phone" :type-value="`number`" :placeholder-value="`Phone`"/>
-				<CustomInput v-model="passwordValue" :type-value="`password`" :placeholder-value="`Password`"/>
-				<CustomInput v-model="passwordConfirmValue" :type-value="`password`" :placeholder-value="`Confirm password`"/>
+				<CustomInput v-model="password" :type-value="`password`" :placeholder-value="`Password`"/>
+				<CustomInput v-model="passwordConfirm" :type-value="`password`" :placeholder-value="`Confirm password`"/>
+				<div v-for="error in v$.$errors" class="mt-2 text-red-700">
+					{{error.$property}} - {{error.$message}}
+					<br>
+				</div>
 			</template>
 			<template v-slot:footer>
 				<button type="submit" class="button">
