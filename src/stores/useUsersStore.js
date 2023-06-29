@@ -11,6 +11,7 @@ export const useUsersStore = defineStore("usersStore", {
 				mail: "",
 				phone: "",
 				password: "",
+				chatsId: 1,
 			}
 		]
 	}),
