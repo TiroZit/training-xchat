@@ -32,8 +32,10 @@ export default defineComponent({
 		handleSubmit() {
 			const auth = this.usersStore.auth(this.loginValue, this.passwordValue)
 
-			if (auth === undefined) return
-			console.log("success")
+			if (auth === undefined) {
+				alert("Логин или пароль неверны")
+				return
+			}
 
 			this.$router.push("/chats")
 		},
