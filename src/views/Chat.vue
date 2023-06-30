@@ -1,18 +1,16 @@
 <template>
 	<div class="chat__wrapper">
 		<div class="chat__messages">
-			<Message v-for="message in getChat(id).messages" :key="message.id" :message="message" />
+			<Message v-for="message in chatStore.getChat(id).messages" :key="message.id" :message="message" />
 		</div>
 		<WriteMessage :id="id"/>
 	</div>
 </template>
 
 <script>
-import {
-	useChatsStore
-} from "../stores/useChatsStore"
 import Message from "/components/Message.vue"
 import WriteMessage from "../components/WriteMessage.vue";
+import {useChatStore} from "../stores/useChatStore.js";
 
 export default {
 	name: "Chat",
@@ -24,16 +22,15 @@ export default {
 		id: Number,
 	},
 	computed: {
-		chats() {
-			const chatsStore = useChatsStore()
-			return chatsStore.chats
-		},
+	},
+	setup() {
+		const chatStore = useChatStore()
+
+		return {
+			chatStore,
+		}
 	},
 	methods: {
-		getChat(id) {
-			const chatsStore = useChatsStore()
-			return chatsStore.getChat(id)
-		},
 	},
 	mounted() {
 	},

@@ -9,17 +9,17 @@
 					{{ chat.name }}
 				</div>
 				<div class="chat__subtitle">
-					<span v-if="getLastElement(chat.messages).text === ''">
+					<span v-if="chat.lastMessage === ''">
 						Изображение
 					</span>
 					<span v-else>
-						{{ getLastElement(chat.messages).text }}
+						{{ chat.lastMessage }}
 					</span>
 				</div>
 			</div>
 			<div class="chat__footer">
 				<div class="chat__time">
-					{{ getLastElement(chat.messages).time }}
+					{{ chat.lastTime }}
 				</div>
 				<div class="chat__notification">
 					4
@@ -35,9 +35,6 @@ export default {
 		chat: {}
 	},
 	methods: {
-		getLastElement: (array) => {
-			return array[array.length - 1]
-		},
 	},
 }
 </script>

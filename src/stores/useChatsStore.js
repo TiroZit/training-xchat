@@ -1,4 +1,7 @@
 import { defineStore } from "pinia";
+import {useChatStore} from "./useChatStore.js";
+
+const chatStore = useChatStore()
 
 export const useChatsStore = defineStore("chatsStore", {
 	state: () => ({
@@ -14,8 +17,15 @@ export const useChatsStore = defineStore("chatsStore", {
 		]
 	}),
 	getters: {
-		getChat: (state) => (id) => {
-			return state.chats.filter((el) => (el.id == id))[0]
+	},
+	actions: {
+		getChats(id) {
+			return this.chats.find((el) => (el.id == id))
+		},
+		getDataChat(chats) {
+			return chats.map((chat) => {
+				return chatStore.getDataChat(chat.id);
+			});
 		},
 	},
 })

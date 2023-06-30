@@ -1,6 +1,6 @@
 <script>
 import {defineComponent} from 'vue'
-import {useChatsStore} from "../stores/useChatsStore.js";
+import {useChatStore} from "../stores/useChatStore.js";
 
 export default defineComponent({
 	name: "WriteMessage",
@@ -14,11 +14,11 @@ export default defineComponent({
 			fileName: "",
 		}
 	},
-	setup(props) {
-		const chatsStore = useChatsStore()
+	setup() {
+		const chatStore = useChatStore()
 
 		return {
-			chatsStore,
+			chatStore,
 		}
 	},
 	mounted() {
@@ -28,7 +28,7 @@ export default defineComponent({
 			if (this.message === "") return
 
 			let message = {
-				id: this.chatsStore.length + 1,
+				id: this.chatStore.length + 1,
 				time: new Date().toLocaleTimeString('en-US',
 					{
 						hour12: false,
@@ -41,7 +41,7 @@ export default defineComponent({
 				type: "own",
 			}
 
-			this.chatsStore.chats[this.id-1].messages.push(message)
+			this.chatStore.getChat(this.id).messages.push(message)
 
 			this.message = ""
 		},
@@ -55,7 +55,7 @@ export default defineComponent({
 				this.fileName = file.name;
 
 				let message = {
-					id: this.chatsStore.length + 1,
+					id: this.chatStore.length + 1,
 					time: new Date().toLocaleTimeString('en-US',
 						{
 							hour12: false,
@@ -69,7 +69,7 @@ export default defineComponent({
 					type: "own",
 				}
 
-				this.chatsStore.chats[this.id-1].messages.push(message)
+				this.chatStore.getChat(this.id).messages.push(message)
 			};
 
 			reader.readAsDataURL(file);

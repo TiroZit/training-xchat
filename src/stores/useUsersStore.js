@@ -15,9 +15,18 @@ export const useUsersStore = defineStore("usersStore", {
 			}
 		]
 	}),
+	getters: {
+		getCurrentUser() {
+			const id = window.localStorage.getItem("userId")
+			return this.users.find((el) => (el.id == id))
+		}
+	},
 	actions: {
 		auth(login, password){
 			return this.users.find((el) => (el.login === login && el.password === password))
+		},
+		getUser(id) {
+			return this.users.find((el)=> (el.id === id))
 		},
 	}
 })

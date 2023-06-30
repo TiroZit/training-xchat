@@ -2,7 +2,6 @@
 import {defineComponent} from 'vue'
 import Popup from "../components/Popup.vue";
 import CustomInput from "../components/CustomInput.vue";
-import axios from "axios";
 import {useUsersStore} from "../stores/useUsersStore.js";
 
 export default defineComponent({
@@ -36,6 +35,8 @@ export default defineComponent({
 				alert("Логин или пароль неверны")
 				return
 			}
+
+			window.localStorage.setItem("userId", auth.id)
 
 			this.$router.push("/chats")
 		},

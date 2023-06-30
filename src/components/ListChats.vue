@@ -11,7 +11,7 @@
 				</div>
 			</div>
 			<div class="chat__body">
-				<Chat v-for="chat in filteredList" :key="chat.id" :chat="chat"/>
+				<Chat v-for="chat in chats" :key="chat.id" :chat="chat"/>
 			</div>
 		</div>
 	</div>
@@ -19,6 +19,7 @@
 <script>
 import Chat from "./Chat.vue";
 import { useChatsStore } from "../stores/useChatsStore";
+import {useUsersStore} from "../stores/useUsersStore.js";
 
 export default {
 	name: "ListChats",
@@ -28,6 +29,8 @@ export default {
 	data() {
 		return {
 			search: "",
+			chatsId: this.usersStore.getCurrentUser.chatsId,
+			chats: [],
 		}
 	},
 	computed: {
@@ -39,13 +42,20 @@ export default {
 	},
 	setup() {
 		const chatsStore = useChatsStore()
+		const usersStore = useUsersStore()
 
 		return {
 			chatsStore,
+			usersStore,
 		}
 	},
 	mounted() {
-		// console.log(this.chatsStore.chats);
+		this.chats = this.chatsStore.getDataChat(this.getChats())
+	},
+	methods: {
+		getChats() {
+			return this.chatsStore.getChats(this.chatsId).chats
+		},
 	},
 }
 </script>

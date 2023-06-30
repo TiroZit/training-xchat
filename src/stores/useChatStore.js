@@ -35,4 +35,21 @@ export const useChatStore = defineStore("chatStore", {
 	}),
 	getters: {
 	},
+	actions: {
+		getDataChat(id) {
+			const response = this.chats.find((el) => (el.id == id))
+			const data = {
+				id: response.id,
+				name: response.name,
+				image: response.image,
+				lastMessage: response.messages[response.messages.length-1].text,
+				lastTime: response.messages[response.messages.length-1].time,
+			}
+
+			return data
+		},
+		getChat(id) {
+			return this.chats.find((el) => (el.id == id))
+		},
+	},
 })
