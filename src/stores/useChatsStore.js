@@ -12,6 +12,9 @@ export const useChatsStore = defineStore("chatsStore", {
 					{
 						id: 1,
 					},
+					{
+						id: 2,
+					},
 				]
 			},
 		]

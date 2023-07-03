@@ -21,9 +21,9 @@
 				<div class="chat__time">
 					{{ chat.lastTime }}
 				</div>
-				<div class="chat__notification">
-					4
-				</div>
+<!--				<div class="chat__notification">-->
+<!--					4-->
+<!--				</div>-->
 			</div>
 		</div>
 	</router-link>

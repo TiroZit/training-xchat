@@ -11,7 +11,7 @@
 				</div>
 			</div>
 			<div class="chat__body">
-				<Chat v-for="chat in chats" :key="chat.id" :chat="chat"/>
+				<Chat v-for="chat in filteredList" :key="chat.id" :chat="chat"/>
 			</div>
 		</div>
 	</div>
@@ -33,13 +33,6 @@ export default {
 			chats: [],
 		}
 	},
-	computed: {
-		filteredList() {
-			return this.chatsStore.chats.filter(chat => {
-				return chat.name.toLowerCase().includes(this.search.toLowerCase())
-			})
-		},
-	},
 	setup() {
 		const chatsStore = useChatsStore()
 		const usersStore = useUsersStore()
@@ -55,6 +48,13 @@ export default {
 	methods: {
 		getChats() {
 			return this.chatsStore.getChats(this.chatsId).chats
+		},
+	},
+	computed: {
+		filteredList() {
+			return this.chats.filter(chat => {
+				return chat.name.toLowerCase().includes(this.search.toLowerCase())
+			})
 		},
 	},
 }
